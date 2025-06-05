@@ -335,12 +335,12 @@ function App() {
 
   return (
     <div style={styles.app}>
-      <h1 style={styles.header}>Rick and Morty Karakterleri</h1>
+      <h1 style={styles.header}>Rick and Morty API</h1>
 
       <div style={styles.controls}>
         <input
           style={styles.input}
-          placeholder="İsim ile ara..."
+          placeholder="Search by name..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           spellCheck={false}
@@ -350,19 +350,19 @@ function App() {
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
         >
-          <option value="">Durum (Tümü)</option>
-          <option value="alive">Yaşayan</option>
-          <option value="dead">Ölü</option>
-          <option value="unknown">Bilinmeyen</option>
+          <option value="">Status(all)</option>
+          <option value="alive">Alive</option>
+          <option value="dead">Dead</option>
+          <option value="unknown">Unknown</option>
         </select>
         <select
           style={styles.select}
           value={speciesFilter}
           onChange={(e) => setSpeciesFilter(e.target.value)}
         >         
-          <option value="">Tür (Tümü)</option>
-          <option value="Human">İnsan</option>
-          <option value="Alien">Uzaylı</option>
+          <option value="">Status(all)</option>
+          <option value="Human">Human</option>
+          <option value="Alien">Alien</option>
           <option value="Robot">Robot</option>
         </select>
         <select
@@ -370,18 +370,18 @@ function App() {
           value={sortOrder}
           onChange={(e) => setSortOrder(e.target.value)}
         >
-          <option value="asc">Artan (A-Z)</option>
-          <option value="desc">Azalan (Z-A)</option>
+          <option value="asc">Asc (A-Z)</option>
+          <option value="desc">Desc (Z-A)</option>
         </select>
         <select
           style={styles.select}
           value={pageSize}
           onChange={(e) => setPageSize(Number(e.target.value))}
         >
-          <option value={5}>Sayfa başına 5</option>
-          <option value={10}>Sayfa başına 10</option>
-          <option value={15}>Sayfa başına 15</option>
-          <option value={20}>Sayfa başına 20</option>
+          <option value={5}>Per page 5</option>
+          <option value={10}>Per page 10</option>
+          <option value={15}>Pper page 15</option>
+          <option value={20}>Per page 20</option>
         </select>
       </div>
       {error && <div style={styles.error}>{error}</div>}
@@ -389,11 +389,11 @@ function App() {
         <table style={styles.table}>
           <thead>
             <tr>
-              <th style={styles.th}>Favori</th>
-              <th style={styles.th}>Resim</th>
-              <th style={styles.th}>İsim</th>
-              <th style={styles.th}>Tür</th>
-              <th style={styles.th}>Durum</th>
+              <th style={styles.th}>Favorite</th>
+              <th style={styles.th}>Picture</th>
+              <th style={styles.th}>Name</th>
+              <th style={styles.th}>Type</th>
+              <th style={styles.th}>Status</th>
             </tr>
           </thead>
           <tbody>
@@ -402,7 +402,7 @@ function App() {
                 key={char.id}
                 style={styles.trHover}
                 onClick={() => setSelectedCharacter(char)} // Satıra tıklanınca detay modalını aç
-                title="Detaylar için tıklayın"
+                title="Click for details"
               >
                 <td
                   onClick={(e) => {
@@ -444,7 +444,7 @@ function App() {
           disabled={page === 1} // İlk sayfadaysa devre dışı
           style={page === 1 ? { ...styles.button, ...styles.buttonDisabled } : styles.button}
         >
-          Önceki
+          Previous
         </button>
         <span style={{ alignSelf: "center", fontWeight: "bold" }}>
           {page} / {totalPages}
@@ -454,19 +454,19 @@ function App() {
           disabled={page === totalPages}
           style={page === totalPages ? { ...styles.button, ...styles.buttonDisabled } : styles.button}
         >
-          Sonraki
+          Next
         </button>
       </div>
 
       {favorites.length > 0 && (
         <div style={styles.favoriteList}>
-          <h3>Favori Karakterler</h3>
+          <h3>Favorite Characters</h3>
           {favorites.map((fav) => (
             <div
               key={fav.id}
               style={styles.favoriteItem}
               onClick={() => setSelectedCharacter(fav)}
-              title="Detaylar için tıklayın"
+              title="Click for details"
             >
               <img
                 src={fav.image}
@@ -480,7 +480,7 @@ function App() {
                   toggleFavorite(fav);
                 }}
                 style={{ marginLeft: "auto", cursor: "pointer", color: "#ff5555" }}
-                title="Favorilerden kaldır"
+                title="Remove from favorites"
               >
                 ✖
               </span>
@@ -501,7 +501,7 @@ function App() {
             <MdClose
               style={styles.modalClose}
               onClick={() => setSelectedCharacter(null)}
-              title="Kapat"
+              title="Close"
             />
             <img
               src={selectedCharacter.image}
@@ -510,11 +510,11 @@ function App() {
             />
             <div style={styles.modalText}>
               <h2>{selectedCharacter.name}</h2>
-              <p><strong>Tür:</strong> {selectedCharacter.species}</p>
-              <p><strong>Durum:</strong> {selectedCharacter.status}</p>
-              <p><strong>Cinsiyet:</strong> {selectedCharacter.gender}</p>
-              <p><strong>Orijin:</strong> {selectedCharacter.origin?.name}</p>
-              <p><strong>Son Konum:</strong> {selectedCharacter.location?.name}</p>
+              <p><strong>Type:</strong> {selectedCharacter.species}</p>
+              <p><strong>Staus:</strong> {selectedCharacter.status}</p>
+              <p><strong>Gender:</strong> {selectedCharacter.gender}</p>
+              <p><strong>First seen in:</strong> {selectedCharacter.origin?.name}</p>
+              <p><strong>Last known location:</strong> {selectedCharacter.location?.name}</p>
             </div>
           </div>
         </div>
